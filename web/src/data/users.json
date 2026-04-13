@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "1",
+    "name": "John Organizer",
+    "email": "john@example.com",
+    "password": "hashed",
+    "role": "organizer",
+    "profileImage": "https://via.placeholder.com/100?text=John",
+    "createdAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "_id": "2",
+    "name": "Jane Investor",
+    "email": "jane@example.com",
+    "password": "hashed",
+    "role": "participant",
+    "profileImage": "https://via.placeholder.com/100?text=Jane",
+    "createdAt": "2026-01-02T00:00:00Z"
+  },
+  {
+    "_id": "3",
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "password": "hashed",
+    "role": "admin",
+    "profileImage": "https://via.placeholder.com/100?text=Admin",
+    "createdAt": "2026-01-03T00:00:00Z"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "1",
+    "userId": "2",
+    "eventId": "1",
+    "registrationDate": "2026-03-20T00:00:00Z",
+    "status": "confirmed"
+  },
+  {
+    "_id": "2",
+    "userId": "2",
+    "eventId": "2",
+    "registrationDate": "2026-03-21T00:00:00Z",
+    "status": "confirmed"
+  }
+]

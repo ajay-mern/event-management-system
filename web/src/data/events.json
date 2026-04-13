@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "1",
+    "title": "Tech Meetup: AI in 2026",
+    "description": "Join us for a discussion on the latest in AI technology.",
+    "category": "Technology",
+    "location": "Hyderabad, India",
+    "date": "2026-04-15T10:00:00Z",
+    "capacity": 100,
+    "posterImage": "https://via.placeholder.com/300x200?text=AI+Meetup",
+    "organizerId": "1"
+  },
+  {
+    "_id": "2",
+    "title": "Startup Networking Event",
+    "description": "Network with fellow entrepreneurs and investors.",
+    "category": "Business",
+    "location": "Mumbai, India",
+    "date": "2026-03-28T14:00:00Z",
+    "capacity": 50,
+    "posterImage": "https://via.placeholder.com/300x200?text=Startup+Networking",
+    "organizerId": "2"
+  },
+  {
+    "_id": "3",
+    "title": "Hiking Adventure",
+    "description": "Explore the outdoors with like-minded adventurers.",
+    "category": "Outdoors",
+    "location": "Goa, India",
+    "date": "2026-04-10T08:00:00Z",
+    "capacity": 20,
+    "posterImage": "https://via.placeholder.com/300x200?text=Hiking+Adventure",
+    "organizerId": "3"
+  }
+]
