@@ -3,8 +3,15 @@ const app = express()
 const { port } = require("./constants/env.js")
 const { apiNotFound, globalmiddleware } = require("./middlewares/appLevelMiddlewares.js")
 const { connectdb } = require("./configs/mongodb.js")
+const fs = require("fs")
 
-
+if (!fs.existsSync(__dirname + "/uploads")) {
+    fs.mkdirSync(__dirname + "/uploads")
+    console.log("created uploads folder successfully")
+} else {
+    console.log("already create uploads folder")
+}
+// console.log(__dirname)
 
 connectdb()
 app.use(express.json())
