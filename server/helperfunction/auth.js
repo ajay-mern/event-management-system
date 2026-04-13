@@ -7,7 +7,7 @@ exports.generateHashPasword = async (password) => {
 }
 
 exports.createToken = async (user) => {
-    console.log(user, "from helperfunction authjs")
+    // console.log(user, "from helperfunction authjs")
     const token = await jwt.sign(user, jwt_secreat_key, { expiresIn: "24h" })
     // console.log(token)
     return token

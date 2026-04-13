@@ -5,7 +5,7 @@ exports.apiNotFound = (req, res, next) => {
 exports.globalmiddleware = (error, req, res, next) => {
     // console.log(error)
     // res.status(400).json({ message: "something went wrong", error_code: error.message })
-    res.status(error.statusCode).json({
+    res.status(error.statusCode || 500).json({
         success: false,
         message: "something went wrong",
         error: {
