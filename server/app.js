@@ -4,6 +4,7 @@ const { port } = require("./constants/env.js")
 const { apiNotFound, globalmiddleware } = require("./middlewares/appLevelMiddlewares.js")
 const { connectdb } = require("./configs/mongodb.js")
 const fs = require("fs")
+const cors = require("cors")
 
 if (!fs.existsSync(__dirname + "/uploads")) {
     fs.mkdirSync(__dirname + "/uploads")
@@ -14,6 +15,8 @@ if (!fs.existsSync(__dirname + "/uploads")) {
 // console.log(__dirname)
 
 connectdb()
+
+app.use(cors({ origin: ["http://localhost:5173"] }))
 app.use(express.json())
 app.use(express.urlencoded())
 
