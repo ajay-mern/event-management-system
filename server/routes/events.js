@@ -9,9 +9,12 @@ const { authentication, authorization } = require("../middlewares/auth.js")
 const { createEventChecks } = require("../validations/event.js")
 const { upload } = require("../configs/multer.js")
 const { idcheck, updateEventValidation } = require("../validations/event.js")
+const { myevents } = require("../controllers/events.js")
 router.post("/createEvent", upload.single("poster"), createEventChecks, validateAuthHeaders, validation, authentication, authorization("organizer"), createEvent)
 
 router.get("/", getAllEvents)
+
+router.get("/my-events", validateAuthHeaders, validation, authentication, authorization("organizer"), myevents)
 
 router.get("/:eid", idcheck, validation, getEvent)
 

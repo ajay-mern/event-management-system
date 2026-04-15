@@ -187,3 +187,9 @@ exports.deleteEvent = async (req, res, next) => {
         next(err)
     }
 }
+
+
+exports.myevents = async (req, res) => {
+    const userdata = await eventsModel.find({ organizerID: req.user._id })
+    res.json({ success: true, message: "fetched all own events", data: { userdata } })
+}
