@@ -55,25 +55,63 @@ const EventDetailsPage = () => {
   if (!event) return <div>Event not found</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <img src={event.posterImage} alt={event.title} className="w-full h-64 object-cover rounded-md mb-6" />
-      <h1 className="text-3xl font-bold mb-4">{event.title}</h1>
-      <p className="text-gray-600 mb-4">{event.description}</p>
+    <div className="container mx-auto px-4 py-10 max-w-5xl">
+  <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+    
+    <div className="overflow-hidden">
+      <img
+        src={event.posterImage}
+        alt={event.title}
+        className="w-full h-72 object-cover hover:scale-105 transition-transform duration-500"
+      />
+    </div>
+
+    <div className="p-6 md:p-8">
+      <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        {event.title}
+      </h1>
+
+      <p className="text-gray-600 leading-relaxed mb-6">
+        {event.description}
+      </p>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h2 className="text-xl font-semibold mb-2">Details</h2>
-          <p><strong>Date:</strong> {new Date(event.date).toLocaleString()}</p>
-          <p><strong>Location:</strong> {event.location}</p>
-          <p><strong>Capacity:</strong> {event.capacity}</p>
-          <p><strong>Category:</strong> {event.category}</p>
+        
+        <div className="bg-gray-50 rounded-xl p-5">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Event Details
+          </h2>
+
+          <div className="space-y-2 text-gray-600">
+            <p><span className="font-medium text-gray-700">Date:</span> {new Date(event.date).toLocaleString()}</p>
+            <p><span className="font-medium text-gray-700">Location:</span> {event.location}</p>
+            <p><span className="font-medium text-gray-700">Capacity:</span> {event.capacity}</p>
+            <p><span className="font-medium text-gray-700">Category:</span> {event.category}</p>
+          </div>
         </div>
-        <div>
-          {/* <h2 className="text-xl font-semibold mb-2">Organizer</h2> */}
-          {/* <p>{organizer?.name}</p> */}
-          <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4 hover:bg-blue-700" onClick={registerEvent}>Register for Event</button>
+
+        <div className="flex flex-col justify-between">
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5">
+            <h2 className="text-xl font-semibold text-gray-800 mb-3">
+              Join this event
+            </h2>
+            <p className="text-gray-600 text-sm mb-4">
+              Don’t miss out—secure your spot and be part of the experience.
+            </p>
+          </div>
+
+          <button
+            className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+            onClick={registerEvent}
+          >
+            Register for Event
+          </button>
         </div>
+
       </div>
     </div>
+  </div>
+</div>
   );
 };
 

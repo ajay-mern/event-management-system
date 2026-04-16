@@ -25,34 +25,66 @@ const ManageUsersPage = () => {
       .catch(err=>{console.log(err)})
   }
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Manage Users</h1>
-      <div className="bg-white rounded-lg shadow-sm overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((user) => (
-              <tr key={user._id}>
-                <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap capitalize">{user.role}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-indigo-600 hover:text-indigo-900 mr-3">view</button>
-                  <button className="text-red-600 hover:text-red-900" onClick={()=>{deleteUser(user._id)}}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div className="container mx-auto px-4 py-10 bg-gray-50 min-h-screen">
+  <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+    Manage Users
+  </h1>
+
+  <div className="bg-white rounded-2xl shadow-lg overflow-x-auto border border-gray-100">
+    <table className="min-w-full text-sm">
+      
+      <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
+        <tr>
+          <th className="px-6 py-3 text-left">Name</th>
+          <th className="px-6 py-3 text-left">Email</th>
+          <th className="px-6 py-3 text-left">Role</th>
+          <th className="px-6 py-3 text-left">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody className="divide-y divide-gray-100">
+        {data.map((user) => (
+          <tr key={user._id} className="text-gray-700">
+            
+            <td className="px-6 py-4 font-medium">
+              {user.name}
+            </td>
+
+            <td className="px-6 py-4 text-gray-600">
+              {user.email}
+            </td>
+
+            <td className="px-6 py-4">
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-medium capitalize
+                  ${user.role === "admin" ? "bg-red-100 text-red-700" : ""}
+                  ${user.role === "organizer" ? "bg-blue-100 text-blue-700" : ""}
+                  ${user.role === "participant" ? "bg-green-100 text-green-700" : ""}
+                `}
+              >
+                {user.role}
+              </span>
+            </td>
+
+            <td className="px-6 py-4">
+              <button className="text-indigo-600 mr-4 font-medium">
+                View
+              </button>
+              <button
+                className="text-red-600 font-medium"
+                onClick={() => { deleteUser(user._id) }}
+              >
+                Delete
+              </button>
+            </td>
+
+          </tr>
+        ))}
+      </tbody>
+
+    </table>
+  </div>
+</div>
   );
 };
 

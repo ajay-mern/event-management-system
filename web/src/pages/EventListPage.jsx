@@ -1,4 +1,3 @@
-import events from '../data/events.json';
 import EventCard from '../components/EventCard';
 import { baseUrl } from '../constants/api';
 import { useEffect, useState } from 'react';
