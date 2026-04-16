@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 const OrganizerDashboardPage = () => {
   const { user } = useAuth();
+  // console.log(user)
 
   return (
     <div className="container mx-auto px-4 py-8">

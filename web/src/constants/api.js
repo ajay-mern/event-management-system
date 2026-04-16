@@ -1,0 +1,1 @@
+export const baseUrl = "https://event-management-system-server-8vt2.onrender.com/api"

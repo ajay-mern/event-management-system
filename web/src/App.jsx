@@ -19,7 +19,9 @@ import AdminManageEventsPage from './pages/AdminManageEventsPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './App.css';
-
+import {ToastContainer} from "react-toastify"
+import OrganizerSignup from './pages/OrganizerSignup';
+import UpdateEventById from './pages/UpdateEventById';
 const PrivateRoute = ({ element }) => {
   const { user } = useAuth();
   return user ? element : <Navigate to="/login" replace />;
@@ -38,11 +40,14 @@ function App() {
               <Route path="/events/:id" element={<EventDetailsPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path = "/organizer/signup" element={<OrganizerSignup/>}/>
               <Route path="/dashboard" element={<PrivateRoute element={<UserDashboardPage />} />} />
+              {/* <Route path="/dashboard" element={ <UserDashboardPage />} /> */}
               <Route path="/my-events" element={<PrivateRoute element={<MyEventsPage />} />} />
               <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
               <Route path="/organizer/dashboard" element={<PrivateRoute element={<OrganizerDashboardPage />} />} />
               <Route path="/organizer/create-event" element={<PrivateRoute element={<CreateEventPage />} />} />
+              <Route path="/organizer/update-event/:eid" element={<PrivateRoute element={<UpdateEventById />} />} />
               <Route path="/organizer/manage-events" element={<PrivateRoute element={<ManageEventsPage />} />} />
               <Route path="/organizer/event-participants" element={<PrivateRoute element={<EventParticipantsPage />} />} />
               <Route path="/admin/dashboard" element={<PrivateRoute element={<AdminDashboardPage />} />} />
@@ -54,6 +59,7 @@ function App() {
           <Footer />
         </div>
       </Router>
+      <ToastContainer/>
     </AuthProvider>
   );
 }

@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
 import events from '../data/events.json';
 import EventCard from '../components/EventCard';
-
+import { useEffect, useState } from 'react';
+import { baseUrl } from '../constants/api';
 const LandingPage = () => {
-  const featuredEvents = events.slice(0, 3); // Show first 3
+  const [eventsdata,setEventsData] = useState([])
+    const fetchEvents = async()=>{
+      const res = await fetch(baseUrl+"/events")
+      const data = await res.json()
+      // console.log(data.data.data)
+      setEventsData(data.data.data)
+    }
+  useEffect(()=>{
+fetchEvents()
+  },[])
+  // const featuredEvents = events.slice(0, 3); // Show first 3
+  const topEvents = eventsdata.slice(0,3)
 
   return (
     <div>
@@ -21,7 +33,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredEvents.map(event => (
+            {topEvents.map(event => (
               <EventCard key={event._id} event={event} />
             ))}
           </div>
