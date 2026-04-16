@@ -1,18 +1,32 @@
-import registrations from '../data/registrations.json';
-import users from '../data/users.json';
-import events from '../data/events.json';
+// import registrations from '../data/registrations.json';
+// import users from '../data/users.json';
+// import events from '../data/events.json';
+
+import axios from "axios";
+import { useEffect } from "react";
+import { baseUrl } from "../constants/api";
+import { useAuth } from "../context/AuthContext";
 
 const EventParticipantsPage = () => {
-  const entries = registrations.map((reg) => {
-    const user = users.find((u) => u._id === reg.userId) || { name: 'Unknown' };
-    const event = events.find((e) => e._id === reg.eventId) || { title: 'Unknown' };
-    return { ...reg, userName: user.name, eventTitle: event.title };
-  });
-
+  // const entries = registrations.map((reg) => {
+  //   const user = users.find((u) => u._id === reg.userId) || { name: 'Unknown' };
+  //   const event = events.find((e) => e._id === reg.eventId) || { title: 'Unknown' };
+  //   return { ...reg, userName: user.name, eventTitle: event.title };
+  // });
+  const {user} = useAuth()
+  const fetchUsersRegistred = async()=>{
+    
+    const res = await axios.get(baseUrl+"/eventregister/participants/organizer",{headers:{Authorization:"Bearer "+user.token}})
+    
+    console.log("=====",res)
+  }
+useEffect(()=>{
+fetchUsersRegistred()
+},[])
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Event Participants</h1>
-      <div className="overflow-x-auto">
+      {/* <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg shadow-sm">
           <thead>
             <tr>
@@ -33,7 +47,7 @@ const EventParticipantsPage = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </div>
   );
 };

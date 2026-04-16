@@ -2,7 +2,7 @@ const { userModel } = require("../models/usermodels.js")
 const { eventsModel } = require("../models/events.js")
 const { eventRegistrationsModel } = require("../models/eventRegistrationModel.js")
 
-exports.register = async (req, res, next) => {
+exports.register = async(req, res, next) => {
     try {
         // res.send("event register successfully")
         const checkEvent = await eventsModel.findById(req.params.eid)
@@ -32,11 +32,11 @@ exports.register = async (req, res, next) => {
     }
 }
 
-exports.cancelEvent = async (req, res, next) => {
+exports.cancelEvent = async(req, res, next) => {
     try {
         // res.send("event cancelled successfully")
         const checkEvent = await eventRegistrationsModel.findOne({ eventId: req.params.eid, userId: req.user._id }).populate("eventId")
-        // console.log(checkEvent)
+            // console.log(checkEvent)
         if (!checkEvent) {
             return res.json({ success: false, message: "event not found", error: { code: "EVENT_NOT_FOUND", data: null } })
         }
@@ -45,7 +45,7 @@ exports.cancelEvent = async (req, res, next) => {
         }
         checkEvent.status = "canceled"
         await checkEvent.save()
-        // res.json(checkEvent)
+            // res.json(checkEvent)
         res.json({ success: true, message: "event cancelled successfully", data: { code: "EVENT_CANCELLED_SUCCESSFULLY", data: checkEvent } })
     } catch (error) {
         // res.send("something went wrong")
@@ -55,7 +55,7 @@ exports.cancelEvent = async (req, res, next) => {
     }
 }
 
-exports.myevents = async (req, res, next) => {
+exports.myevents = async(req, res, next) => {
     try {
         // res.send("getting all your events")
         const getRegisterdEvents = await eventRegistrationsModel.find({ userId: req.user._id }).populate(["eventId", "userId"])
@@ -68,7 +68,7 @@ exports.myevents = async (req, res, next) => {
     }
 }
 
-exports.getEventParticipants = async (req, res, next) => {
+exports.getEventParticipants = async(req, res, next) => {
     try {
         // res.send("getting the participants")
         const getAllParticipants = await eventRegistrationsModel.find({ eventId: req.params.eid }).populate("userId", ["name", "email", "profileImage", "updatedAt", "createdAt"])
@@ -89,5 +89,25 @@ exports.uploadEventPoster = (req, re, next) => {
     } catch (error) {
         res.send("something went wrong")
         next(error)
+    }
+}
+
+
+exports.getOrganizerParticipants = async(req, res, next) => {
+    try {
+        // res.send("getting participants for organizer")
+        const events = await eventsModel.find({ organizerID: req.user._id })
+        const eventIds = events.map(e => e._id)
+        const registrations = await eventRegistrationsModel.find({
+                eventId: { $in: eventIds }
+            })
+            .populate("userId", "name email")
+            .populate("eventId", "title")
+        res.json({ success: true, message: "fetched all registerd users", data: { code: "FETCHED ALL THE REGISTRED USERS", data: registrations } })
+
+    } catch (error) {
+        const err = new Error(error)
+        err.statusCode = 400
+        next(err)
     }
 }
