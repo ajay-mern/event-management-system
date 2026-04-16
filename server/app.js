@@ -16,7 +16,7 @@ if (!fs.existsSync(__dirname + "/uploads")) {
 
 connectdb()
 
-app.use(cors({ origin: ["http://localhost:5173"] }))
+app.use(cors({ origin: ["http://localhost:5173", "https://event-management-system-3wc5.vercel.app"] }))
 app.use(express.json())
 app.use(express.urlencoded())
 
