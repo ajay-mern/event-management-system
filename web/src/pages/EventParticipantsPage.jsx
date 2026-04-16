@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { baseUrl } from "../constants/api";
 import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 
 const EventParticipantsPage = () => {
   // const entries = registrations.map((reg) => {
@@ -13,12 +14,25 @@ const EventParticipantsPage = () => {
   //   const event = events.find((e) => e._id === reg.eventId) || { title: 'Unknown' };
   //   return { ...reg, userName: user.name, eventTitle: event.title };
   // });
+  // const [data,setData] = useState([])
+  const [name,setName] = useState('')
+  const [eventName,setEventName] = useState('')
+  const [registreddate,setRegistredDate] = useState("")
+  const [status,setStatus]=useState("")
   const {user} = useAuth()
   const fetchUsersRegistred = async()=>{
     
     const res = await axios.get(baseUrl+"/eventregister/participants/organizer",{headers:{Authorization:"Bearer "+user.token}})
     
-    console.log("=====",res)
+    const ans = res.data.data.data
+    // console.log(ans.userId)
+    ans.map(item=>{
+      // console.log(item.status)
+      setName(item.userId.name)
+      setEventName(item.eventId.title)
+      setRegistredDate(item.registrationDate)
+      setStatus(item.status)
+    })
   }
 useEffect(()=>{
 fetchUsersRegistred()
@@ -26,7 +40,7 @@ fetchUsersRegistred()
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Event Participants</h1>
-      {/* <div className="overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded-lg shadow-sm">
           <thead>
             <tr>
@@ -37,17 +51,17 @@ fetchUsersRegistred()
             </tr>
           </thead>
           <tbody>
-            {entries.map((item) => (
-              <tr key={item._id} className="even:bg-gray-50">
-                <td className="px-4 py-2 border">{item.userName}</td>
-                <td className="px-4 py-2 border">{item.eventTitle}</td>
-                <td className="px-4 py-2 border">{new Date(item.registrationDate).toLocaleDateString()}</td>
-                <td className="px-4 py-2 border capitalize">{item.status}</td>
+           
+              <tr className="even:bg-gray-50">
+                <td className="px-4 py-2 border">{name}</td>
+                <td className="px-4 py-2 border">{eventName}</td>
+                <td className="px-4 py-2 border">{registreddate}</td>
+                <td className="px-4 py-2 border capitalize">{status}</td>
               </tr>
-            ))}
+           
           </tbody>
         </table>
-      </div> */}
+      </div>
     </div>
   );
 };
