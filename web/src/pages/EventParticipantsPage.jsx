@@ -1,7 +1,3 @@
-// import registrations from '../data/registrations.json';
-// import users from '../data/users.json';
-// import events from '../data/events.json';
-
 import axios from "axios";
 import { useEffect } from "react";
 import { baseUrl } from "../constants/api";
@@ -9,30 +5,17 @@ import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 
 const EventParticipantsPage = () => {
-  // const entries = registrations.map((reg) => {
-  //   const user = users.find((u) => u._id === reg.userId) || { name: 'Unknown' };
-  //   const event = events.find((e) => e._id === reg.eventId) || { title: 'Unknown' };
-  //   return { ...reg, userName: user.name, eventTitle: event.title };
-  // });
-  // const [data,setData] = useState([])
-  const [name,setName] = useState('')
-  const [eventName,setEventName] = useState('')
-  const [registreddate,setRegistredDate] = useState("")
-  const [status,setStatus]=useState("")
+
+  const [data,setData] = useState([])
   const {user} = useAuth()
   const fetchUsersRegistred = async()=>{
     
     const res = await axios.get(baseUrl+"/eventregister/participants/organizer",{headers:{Authorization:"Bearer "+user.token}})
     
     const ans = res.data.data.data
-    // console.log(ans.userId)
-    ans.map(item=>{
-      // console.log(item.status)
-      setName(item.userId.name)
-      setEventName(item.eventId.title)
-      setRegistredDate(item.registrationDate)
-      setStatus(item.status)
-    })
+    setData(ans)
+    console.log(ans)
+
   }
 useEffect(()=>{
 fetchUsersRegistred()
@@ -50,16 +33,16 @@ fetchUsersRegistred()
               <th className="px-4 py-2 border">Status</th>
             </tr>
           </thead>
-          <tbody>
-           
-              <tr className="even:bg-gray-50">
-                <td className="px-4 py-2 border">{name}</td>
-                <td className="px-4 py-2 border">{eventName}</td>
-                <td className="px-4 py-2 border">{registreddate}</td>
-                <td className="px-4 py-2 border capitalize">{status}</td>
+      <tbody>
+           {data.map((item, index) => (
+               <tr key={index} className="even:bg-gray-50">
+               <td className="px-4 py-2 border">{item.userId.name}</td>
+                <td className="px-4 py-2 border">{item.eventId.title}</td>
+                <td className="px-4 py-2 border">{item.registrationDate}</td>
+                <td className="px-4 py-2 border capitalize">{item.status}</td>
               </tr>
-           
-          </tbody>
+                ))}
+        </tbody>
         </table>
       </div>
     </div>
